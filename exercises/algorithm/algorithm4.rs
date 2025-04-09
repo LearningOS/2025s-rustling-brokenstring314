@@ -66,7 +66,21 @@ where
 {
     // Insert a node into the tree
     fn insert(&mut self, value: T) {
-        //TODO
+        let mut node = TreeNode::new(value);
+        let mut now_ptr = self;
+        loop {
+            if (*now_ptr).value < value {
+                if (*now_ptr).right == Some(now) {
+                    now_ptr = &mut (*now);
+                }else {
+
+                }
+
+            }else{
+                now_ptr = &mut (*now_ptr).left;
+            }
+        }
+
     }
 }
 

@@ -2,7 +2,6 @@
 	single linked list merge
 	This problem requires you to merge two ordered singly linked lists into one ordered singly linked list
 */
-// I AM NOT DONE
 
 use std::fmt::{self, Display, Formatter};
 use std::ptr::NonNull;
@@ -56,11 +55,11 @@ impl<T> LinkedList<T> {
         self.length += 1;
     }
 
-    pub fn get(&mut self, index: i32) -> Option<&T> {
+    pub fn get(&self, index: i32) -> Option<&T> {
         self.get_ith_node(self.start, index)
     }
 
-    fn get_ith_node(&mut self, node: Option<NonNull<Node<T>>>, index: i32) -> Option<&T> {
+    fn get_ith_node(&self, node: Option<NonNull<Node<T>>>, index: i32) -> Option<&T> {
         match node {
             None => None,
             Some(next_ptr) => match index {
@@ -70,12 +69,45 @@ impl<T> LinkedList<T> {
         }
     }
 	pub fn merge(list_a:LinkedList<T>,list_b:LinkedList<T>) -> Self
+    where
+        T: Ord + Copy,
 	{
-		//TODO
+        let mut res = LinkedList::<T>::new();
+        let mut i:u32 = 0;
+        let mut j:u32 = 0;
+        let mut k:u32 = 0;
+        // let mut temp = Node::new(list_a.start.unwrap());
+
+        while i < list_a.length && j < list_b.length {
+            if let Some(val_a) = list_a.get(i as i32) {
+                if let Some(val_b) = list_b.get(j as i32) {
+                    if val_a >= val_b {
+                        res.add(*val_b);
+                        j+=1;
+                    }else{
+                        res.add(*val_a);
+                        i+=1;
+                    }
+                }
+            }
+        }
+        while i < list_a.length {
+            if let Some(val_a) = list_a.get(i as i32) {
+                res.add(*val_a);
+                i+=1;
+            }
+        }
+        while j < list_b.length {
+            if let Some(val_b) = list_b.get(j as i32) {
+                res.add(*val_b);
+                j+=1;
+            }
+        }
+
 		Self {
-            length: 0,
-            start: None,
-            end: None,
+            length: res.length,
+            start: res.start,
+            end: res.end,
         }
 	}
 }

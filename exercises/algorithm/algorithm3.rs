@@ -5,8 +5,16 @@
 */
 // I AM NOT DONE
 
-fn sort<T>(array: &mut [T]){
-	//TODO
+use std::mem::swap;
+
+fn sort<T:Ord>(array: &mut [T]){
+	for i in 0..array.len(){
+        for j in i..array.len(){
+            if array[j] < array[i]{
+                array.swap(j, i);
+            }
+        }
+    }
 }
 #[cfg(test)]
 mod tests {
